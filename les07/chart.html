@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="chart.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <section>
+        <canvas id="myChart"></canvas>
+    </section>
+    <script>
+
+        fetch("meterstanden.php")
+            .then(function (response) {
+                return response.json()
+            })
+            .then(function (json) {
+                // console.log(Json);
+                maakChart(json.labels, json.values);
+            })
+
+        const maakChart = function (labels, values) {
+
+            // console.log(labels);
+            // console.log(values);
+
+            const data = {
+                labels: labels,
+                datasets: [{
+                    label: 'Meterstanden',
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: values,
+                }]
+            };
+
+            const config = {
+                type: 'line',
+                data: data,
+                options: {}
+            };
+
+
+            const myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+            );
+        }
+    </script>
+</body>
+
+</html>
